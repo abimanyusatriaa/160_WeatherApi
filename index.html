@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaca</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer"></script>
+
+    <h1>Lokasi: <input type="text" placeholder="Masukkan Lokasi" id="lokasi"> 
+        <button id="tombol-get">GET</button>
+    </h1>
+    <hr>
+
+    <h2>Cuaca</h2>
+    <div id="suhu"></div>
+    <div id="suhuf"></div>
+    <div id="kelembapan"></div>
+    <hr>
+
+    <h3>Lokasi</h3>
+    <div id="negara"></div>
+    <div id="provinsi"></div>
+    <div id="kecamatan"></div>
+    <div id="longitude"></div>
+    <div id="latitut"></div>
+
+    <script>
+    function getWeather(lokasi) {
+        const urlapi = `https://api.weatherapi.com/v1/current.json?key=557fc5f51f8c4eb0a7b65603250710&q=${lokasi}&aqi=no`;
+        
+        $.ajax({
+            url: urlapi,
+            method: "GET",
+            success: function(data) {
+                console.log(data);
+                
+                document.getElementById("suhu").innerHTML = `Suhu Celcius: ${data.current.temp_c}°C`;
+                document.getElementById("suhuf").innerHTML = `Suhu Fahrenheit: ${data.current.temp_f}°F`;
+                document.getElementById("kelembapan").innerHTML = `Kelembapan: ${data.current.humidity}%`;
+                document.getElementById("negara").innerHTML = `Negara: ${data.location.country}`;
+                document.getElementById("provinsi").innerHTML = `Provinsi: ${data.location.region}`;
+                document.getElementById("kecamatan").innerHTML = `Kecamatan: ${data.location.name}`;
+                document.getElementById("longitude").innerHTML = `Longitude: ${data.location.lon}`;
+                document.getElementById("latitut").innerHTML = `Latitut: ${data.location.lat}`;
+                document.getElementById("lokasi").value = data.location.name;
+            },
+            error: function(error) {
+                console.log(error);
+                alert("Lokasi tidak ditemukan atau terjadi kesalahan.");
+            }
+        });
+    }
+
+    $('#tombol-get').on('click', function() {
+        const lokasiInput = document.getElementById("lokasi").value; 
+        if (lokasiInput) {
+            getWeather(lokasiInput);
+        } else {
+            alert("Silakan masukkan nama lokasi terlebih dahulu.");
+        }
+    });
+
+    getWeather("Yogyakarta");
+    </script>
+</body>
+</html>
