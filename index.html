@@ -11,9 +11,9 @@
     crossorigin="anonymous" 
     referrerpolicy="no-referrer"></script>
 
-    <h1>Lokasi: <input type="text" placeholder="Masukkan Lokasi" id="lokasi"> 
+    <h2>Lokasi: <input type="text" placeholder="Masukkan Lokasi" id="lokasi"> 
         <button id="tombol-get">GET</button>
-    </h1>
+    </h2>
     <hr>
 
     <h2>Cuaca</h2>
@@ -22,12 +22,12 @@
     <div id="kelembapan"></div>
     <hr>
 
-    <h3>Lokasi</h3>
+    <h2>Lokasi</h2>
     <div id="negara"></div>
     <div id="provinsi"></div>
     <div id="kecamatan"></div>
     <div id="longitude"></div>
-    <div id="latitut"></div>
+    <div id="latitude"></div>
 
     <script>
     function getWeather(lokasi) {
@@ -46,7 +46,7 @@
                 document.getElementById("provinsi").innerHTML = `Provinsi: ${data.location.region}`;
                 document.getElementById("kecamatan").innerHTML = `Kecamatan: ${data.location.name}`;
                 document.getElementById("longitude").innerHTML = `Longitude: ${data.location.lon}`;
-                document.getElementById("latitut").innerHTML = `Latitut: ${data.location.lat}`;
+                document.getElementById("latitude").innerHTML = `Latitude: ${data.location.lat}`;
                 document.getElementById("lokasi").value = data.location.name;
             },
             error: function(error) {
